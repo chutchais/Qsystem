@@ -1,0 +1,46 @@
+{% extends 'base-main.html' %}
+{% load humanize %}
+
+{% block title %}LCB1 - Counter{% endblock %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="20">
+{% endblock meta %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-8 col-md-8">
+			<h2>Select Counter</h2>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">Counter</th>
+			      <th scope="col">Working Job</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				{% for object in object_list %}
+					<tr>
+						<td>
+						<a href="{{object.get_absolute_url}}">{{object}}</a>
+						</td>
+						<td>
+							{% for job in object.get_working_jobs %}
+								<span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} -- {{job.created_date|naturaltime}} </span>
+							{% endfor %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+		</div>
+		<div class="col-sm-4 col-md-4">
+		<h2>Pending Jobs</h2>
+		{% for job in job_list %}
+			<span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} -- {{job.created_date|naturaltime}} </span>
+		{% endfor %}
+		</div>
+
+	</div><!-- end Row -->
+
+{% endblock content %}

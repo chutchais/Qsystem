@@ -1,0 +1,53 @@
+# docker-compose.yml
+
+version: '3.3'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:5.0.6-alpine
+    networks:
+      - main
+    volumes:
+      - redis_data:/data
+    ports:
+      - 6379:6379
+
+  web-server:
+    build:
+      context: ./src/web
+    networks:
+      - main
+    volumes:
+      # - web-django:/usr/src/app
+      - web-static:/staticfiles
+      - web-media:/media
+    command: gunicorn qsystem.wsgi:application -w 2 -b :8001
+    container_name: web-server
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - 8001:8001
+
+
+#  play-server:
+#    build:
+#      context: ./src/play
+#    networks:
+#      - main
+#    #command: python callQ.py
+#    container_name: play-server
+#    depends_on:
+#      - redis
+    
+
+volumes:  
+  redis_data:
+  web-static:
+  web-media:
+
+
+networks:
+  main:

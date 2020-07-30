@@ -1,0 +1,51 @@
+{% extends 'base-main.html' %}
+
+{% block title %}LCB1 - Counter{% endblock %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="20">
+{% endblock meta %}
+
+{% block content %}
+	<h1>{{object}}</h1>
+	<a href="{% url 'counter:list' %}">back</a>
+
+	<h3>On Working Job</h3>
+	
+	<table>
+	{% for job in job_list %}
+		
+		{% if job.counter == object %}
+		<tr>
+			<td>
+				<h2><span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} </span></h2>
+			</td>
+			<td>
+			{{job.created_date}} ({{job.created_date|timesince}}) 
+			 <a href="{% url 'job:calljob' job.pk %}">Call </a>|<a href="{% url 'job:complete' job.pk %}">Job Done </a> | <a href="{% url 'job:cancel' job.pk %}">Cancel</a>
+			</td>
+		 <tr>
+		{% endif %}
+		
+	{% endfor %}
+	</table>
+
+	<h3>Pending Job</h3>
+	<table>
+ 	{% for job in job_list %}
+ 		{% if job.counter == None %}
+ 			<tr>
+				<td>
+					<h2><span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} </span></h2>
+				</td>
+				<td>
+				{{job.created_date}} ({{job.created_date|timesince}}) 
+				 <a href="{% url 'job:assign' job.pk object.pk %}">Accept Job </a> 
+				  | <a href="{% url 'job:delete' job.pk %}">Delete</a>
+				</td>
+		 	<tr>
+		{% endif %}
+	{% endfor %}
+	</table>
+	
+{% endblock content %}

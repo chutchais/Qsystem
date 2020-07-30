@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block title %}LCB1 - Home{% endblock %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="20">
+{% endblock meta %}
+
+{% block content %}
+ <div id="qsystem">
+	<div class="wrapper">
+		<div class="main">
+
+			<div class="list-counter-left">
+				{% for object in object_list %}
+					{% if forloop.counter <= 6 %}
+						<div class="list-counter">
+							<div class="counter">{{object.counter_number}}</div>
+							<div class="queue">{{object.get_working_jobs.last.get_full_name}}</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+
+			<div class="list-counter-right">
+				{% for object in object_list %}
+					{% if forloop.counter > 6 %}
+						<div class="list-counter">
+							<div class="counter-r">{{object.counter_number}}</div>
+							<div class="queue">{{object.get_working_jobs.last.get_full_name}}</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+
+
+
+
+{% block javascript %}
+<script type="text/javascript">
+    new Vue({
+          el: '#qsystem',
+          delimiters: ['${','}'],
+          data: {
+            test : 'Hello World'
+          },
+          mounted: function() {
+
+          },
+          created: function() {
+
+          },
+          methods: {
+          }
+        });
+  </script>
+{% endblock javascript %}
+
+
+
+
+{% block stylesheet %}
+
+           .wrapper{
+              display:grid;
+              grid-gap:10px;
+             width: 100%;
+             height : 100%;
+            margin: 0;
+            padding: 0;
+              <!-- width: 100vw; -->
+          }
+
+
+
+.counter {
+    grid-area: counter;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: center;
+    background-color: coral
+}
+
+.counter-r {
+    grid-area: counter;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: center;
+    background-color: tan;
+}
+
+.queue {
+    grid-area: queue;
+    font-size: 4rem;
+    display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: center;
+}
+		
+		.list-counter {
+            display: grid;
+            grid-gap: 2px;
+            grid-template-areas:
+            'counter queue';
+            box-shadow:var(--shadow);
+            grid-template-columns: 1fr 1fr;
+        }
+
+        
+
+
+      .list-counter-left {
+            display: grid;
+            grid-gap: 2px;
+            grid-template-areas:
+            'list-counter';
+            box-shadow:var(--shadow);
+            grid-template-columns: 1fr;
+        }
+
+        .list-counter-right {
+            display: grid;
+            grid-gap: 2px;
+            grid-template-areas:
+               'list-counter';
+            box-shadow:var(--shadow);
+            grid-template-columns: 1fr;
+        }
+
+        .main{
+        	display: grid;
+            grid-gap: 2px;
+            grid-template-areas:
+            'list-counter-left list-counter-right';
+
+    }
+
+<!-- @media(max-width:1400px){
+    .main{
+    		 grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+            'list-counter-left list-counter-right';
+
+    }
+} -->
+
+@media(max-width:980px){
+
+	.main{
+    		 grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+            'list-counter-left list-counter-right';
+
+    }
+    
+    .counter {
+	    font-size: 3rem;
+	}
+
+	.counter-r {
+	    font-size: 3rem;
+	}
+
+	.queue {
+	    font-size: 3rem;
+	}
+}
+
+@media(max-width:640px){
+    .counter {
+	    font-size: 2rem;
+	}
+
+	.counter-r {
+	    font-size: 2rem;
+	}
+
+	.queue {
+	    font-size: 2rem;
+	}
+}
+   
+
+{% endblock stylesheet %}
+
+
+

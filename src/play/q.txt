@@ -1,0 +1,13 @@
+ESC a 1
+GS ! 0
+
+"LCB1&LCMT Q-System" CR LF
+GS ! 119
+"X615" CR LF
+GS ! 0
+CR LF
+CR LF
+CR LF
+CR LF
+GS V 0
+*1000

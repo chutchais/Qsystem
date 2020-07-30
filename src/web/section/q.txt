@@ -1,0 +1,29 @@
+' Sample script of senddat
+' Version 0.01
+
+'Comment line is starting ' character
+!Display line is starting ! character
+'.Pause line is starting . character
+ESC a 1
+GS ! 0
+
+'String data 1
+"LCB1&LCMT Q-System" CR LF
+
+'112 + 7
+GS ! 119
+
+'String data 2
+"A999" CR LF
+GS ! 0
+
+CR LF
+CR LF
+CR LF
+CR LF
+
+'Paper cut
+GS V 0
+
+'Wait 3 seconds
+*1000

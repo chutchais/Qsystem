@@ -1,0 +1,151 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block meta %}
+    {% endblock meta %}
+
+    <!-- Bootstrap CSS -->
+    
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+ <!--    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
+
+
+
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+
+
+<div class="container">
+
+          {% block head %}
+          {% endblock head %}
+
+         
+
+          <style type="text/css">
+              #app {
+                font-family: Arial,  Helvetica, sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-align: center;
+                color: #2c3e50;
+                margin-top: 2px;
+                margin-left: 10px;
+                margin-right: 10px;
+              }
+
+              html{
+                  box-sizing: border-box;
+                  font-family:Arial, Helvetica, sans-serif;
+                  color:var(--dark);
+
+              }
+              :root{
+                  --primary: #ddd;
+                  --dark:#333;
+                  --light:#fff;
+                  --blue :#00316b;
+                  --blue-dark : 001f44;
+                  --shadow: 0 1px 5px rgba(104,104,104,0.8);
+              }
+
+
+
+              /* New Nav */
+              body{
+                  /* margin: 0 auto; */
+                  margin: 10;
+                  padding: 2;
+                  font-family:Arial, Helvetica, sans-serif;
+              }
+
+
+
+
+/*              h2,h3 {
+                    color: #C25100;
+                }*/
+
+              a:link {
+                text-decoration: none;
+              }
+
+              
+              .qty {
+                color: #FF0000;
+              }
+
+               .true{
+                color: #00FF00;
+              }
+
+              .false{
+                color: #FF0000;
+              }
+
+              .nothing{
+              color: #FFFFFF;
+              font-weight: bold;
+              background-color: #FF0000;
+              text-decoration: none;
+            }
+
+            .weight {
+              color: #FF0000;
+            }
+            .notice {
+              color: #FF0000;
+            }
+
+
+            {% block stylesheet %}
+            {% endblock stylesheet %}
+          </style>
+          
+          {% block content %}
+          {% endblock content %}
+</div>
+
+  
+
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+     <!-- vue.js files -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+
+
+     {% block javascript %}
+     {% endblock javascript %}
+
+  </body>
+
+   
+  </html>

@@ -1,0 +1,26 @@
+{% extends 'base-main.html' %}
+
+{% block title %}LCB1 - Queue{% endblock %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="20">
+{% endblock meta %}
+
+{% block content %}
+	<h1>Request New Queue</h1>
+	<table>
+	{% for object in object_list %}
+		<tr>
+			<td>
+				<h2><span class="badge" style="background-color: {{object.color}};color: #ffffff;">{{object}} </span></h2>
+			</td>
+			<td>
+				<h2>{{object.prefix}}{{object.get_actual_number|stringformat:"03d"}} </h2>
+			</td>
+			<td>
+				<a href="{{object.get_absolute_url}}/nextcall"> Create Next Queue</a>
+			</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock content %}
