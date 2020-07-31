@@ -16,7 +16,7 @@
 	<table>
 	{% for job in job_list %}
 		
-		{% if job.counter == object %}
+
 		<tr>
 			<td>
 				<h2><span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} </span></h2>
@@ -25,8 +25,7 @@
 			{{job.created_date}} ({{job.created_date|timesince}}) 
 			 <a href="{% url 'job:calljob' job.pk %}">Call </a>|<a href="{% url 'job:complete' job.pk %}">Job Done </a> | <a href="{% url 'job:cancel' job.pk %}">Cancel</a>
 			</td>
-		 <tr>
-		{% endif %}
+		<tr>
 		
 	{% endfor %}
 	</table>
