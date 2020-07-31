@@ -7,22 +7,26 @@ from task import play_call_sound
 
 # db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
 
-db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True) # Dockere
-# db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
+# db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True) # Dockere
+db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
 
 def pulling_q():
-	now = datetime.now() # current date and time
-	# start_time 	= get_last_exe_time('B1')
-	stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
-	for q in db.keys('Q*'):
-		counter = q.split(':')[1]
-		payload = json.loads(db.get(q))
-		prefix = payload['prefix']
-		number = payload['number']
-		# delete key
-		db.delete(q)
-		
-		play_call_sound(number,counter,prefix)
+	try:
+		now = datetime.now() # current date and time
+		# start_time 	= get_last_exe_time('B1')
+		stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
+		for q in db.keys('Q*'):
+			counter = q.split(':')[1]
+			payload = json.loads(db.get(q))
+			prefix = payload['prefix']
+			number = payload['number']
+			# delete key
+			db.delete(q)
+			
+			play_call_sound(number,counter,prefix)
+	except Exception as e:
+		pass
+	
 		# print (counter,prefix,number)
 	# print(db.keys('Q*'))
 	# print(f"Pulling data of B1. from {get_last_exe_time('B1')} to {datetime.now()}")
@@ -43,5 +47,9 @@ pulling_q()
 
 #------------
 while True:
-	schedule.run_pending()
-	time.sleep(1)
+	try:
+		schedule.run_pending()
+		time.sleep(1)
+	except Exception as e:
+		pass
+	
