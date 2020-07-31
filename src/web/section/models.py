@@ -36,3 +36,4 @@ class Section(models.Model):
 		indexes = [
 			models.Index(fields=['name'],name='idx_section_section_name'),
 		]
+		ordering = ['prefix']

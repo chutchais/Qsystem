@@ -23,3 +23,4 @@ class Counter(models.Model):
 		indexes = [
 			models.Index(fields=['name'],name='idx_counter_counter_name'),
 		]
+		ordering = ['counter_number']
