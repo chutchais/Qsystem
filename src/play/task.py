@@ -25,7 +25,7 @@ def play_call_sound(job_q_number,counter_number,job_prefix):
 	# job = Job.objects.get(pk=job_pk)
 	
 	cwd = os.getcwd()
-	sound_root_path = f"{cwd}/sound/"
+	sound_root_path = '%s\\sound\\' % cwd #f"{cwd}\\sound\\"
 	# print (sound_root_path)
 	try:
 		from pathlib import Path
@@ -52,7 +52,7 @@ def play_number_sound(job):
 	import time
 	from playsound import playsound
 	cwd = os.getcwd()
-	sound_root_path = f"{cwd}/sound/"
+	sound_root_path = '%s\\sound\\' % cwd #f"{cwd}\\sound\\"
 	# sound_root_path = 'd:\\qsystem\\media\\sound\\'
 	# job_number = job.queue_number
 	job_number = job
@@ -71,7 +71,7 @@ def play_ten_sound(q_number):
 	import time
 	from playsound import playsound
 	cwd = os.getcwd()
-	sound_root_path = f"{cwd}/sound/"
+	sound_root_path = '%s\\sound\\' % cwd #f"{cwd}\\sound\\"
 	# sound_root_path = 'd:\\qsystem\\media\\sound\\'
 	job_number = q_number
 	try:
@@ -96,7 +96,7 @@ def play_hundred_sound(q_number):
 	import time
 	from playsound import playsound
 	cwd = os.getcwd()
-	sound_root_path = f"{cwd}/sound/"
+	sound_root_path = '%s\\sound\\' % cwd #f"{cwd}\\sound\\"
 	# sound_root_path = 'd:\\qsystem\\media\\sound\\'
 	job_number = q_number
 	try:

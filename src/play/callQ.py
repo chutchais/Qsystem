@@ -6,8 +6,9 @@ import json
 from task import play_call_sound
 
 # db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
-db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True)
 
+db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True) # Dockere
+# db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
 
 def pulling_q():
 	now = datetime.now() # current date and time
