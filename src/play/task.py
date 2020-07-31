@@ -42,6 +42,8 @@ def play_call_sound(job_q_number,counter_number,job_prefix):
 			playsound(sound_root_path + 'counter.wav')#At counter
 
 			playsound(sound_root_path + '%s.wav' % counter_number)#Counter number
+
+			playsound(sound_root_path + 'endWord.wav')
 			#playsound('c:\\users\\gate\\sounds\\truck2.wav')
 		else :
 			print ('Not found sounds/X.wav file')
@@ -87,7 +89,10 @@ def play_ten_sound(q_number):
 			if last_digit == 1:
 				playsound(sound_root_path + '_1.wav' )
 			else :
-				playsound(sound_root_path + '%s.wav' % last_digit )
+				# pass
+				# Fix couting wrong number by Chutchai on July 31,2020
+				if last_digit > 0 :
+					playsound(sound_root_path + '%s.wav' % last_digit )
 
 	except:
 		print ('Error on play_ten_sound')

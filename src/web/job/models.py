@@ -23,10 +23,10 @@ class Job(models.Model):
 	finished_date	= models.DateTimeField(blank=True, null=True)
 	active			= models.BooleanField(default=True)
 	user 			= models.ForeignKey(
-					        settings.AUTH_USER_MODEL,
-					        on_delete=models.SET_NULL,
-					        blank=True, null=True
-					    )
+							settings.AUTH_USER_MODEL,
+							on_delete=models.SET_NULL,
+							blank=True, null=True
+						)
 
 	def __str__(self):
 		return ('Oueue : %s of %s' % (self.queue_number,self.section))
@@ -36,4 +36,10 @@ class Job(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('job:detail', kwargs={'pk': self.pk})
+
+	class Meta:
+		indexes = [
+			models.Index(fields=['counter'],name='idx_job_job_counter'),
+			models.Index(fields=['section'],name='idx_job_job_section'),
+		]
 

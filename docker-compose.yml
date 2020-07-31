@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '3.3'
+version: '3'
 
 services:
   redis:
@@ -13,9 +13,26 @@ services:
     ports:
       - 6379:6379
 
+  db-server:
+    restart: always
+    image: postgres:latest
+    container_name: db-server
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=qsystem_sa
+      - POSTGRES_PASSWORD=pAssw0rd!
+      - POSTGRES_DB=qsystem_db
+    networks:
+      - main
+    volumes:
+      - pgdata:/var/lib/postgresql/qsystem_db/
+
   web-server:
     build:
       context: ./src/web
+    links:
+      - db-server:postgres
     networks:
       - main
     volumes:
@@ -47,6 +64,7 @@ volumes:
   redis_data:
   web-static:
   web-media:
+  pgdata:
 
 
 networks:

@@ -18,3 +18,8 @@ class Counter(models.Model):
 
 	def get_working_jobs(self):
 		return self.jobs.filter(active=True)
+
+	class Meta:
+		indexes = [
+			models.Index(fields=['name'],name='idx_counter_counter_name'),
+		]

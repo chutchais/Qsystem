@@ -31,3 +31,8 @@ class Section(models.Model):
 		else :
 			self.current_number = self.current_number + 1
 		self.save()
+
+	class Meta:
+		indexes = [
+			models.Index(fields=['name'],name='idx_section_section_name'),
+		]
