@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'debug_toolbar',
     'crispy_forms',
     'section',
     'counter',
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -78,23 +80,23 @@ WSGI_APPLICATION = 'qsystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':     'qsystem_db',
-        'USER':     'qsystem_sa',
-        'PASSWORD': 'pAssw0rd!',
-        'HOST':     'db-server',
-        'PORT':     '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME':     'qsystem_db',
+#         'USER':     'qsystem_sa',
+#         'PASSWORD': 'pAssw0rd!',
+#         'HOST':     'db-server',
+#         'PORT':     '5432'
+#     }
+# }
 
 
 # Password validation
@@ -150,3 +152,12 @@ MEDIA_ROOT ='/media'
 LOGIN_URL = '/auth/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Debugging Tools
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    'localhost',
+    '192.168.99.100'
+    # ...
+]

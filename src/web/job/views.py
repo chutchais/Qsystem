@@ -34,19 +34,19 @@ class JobDeleteView(LoginRequiredMixin,DeleteView):
 import threading
 import time
 
-class myThread (threading.Thread):
-   def __init__(self, job_number, counter_number, job_prefix):
-      threading.Thread.__init__(self)
-      self.job_number = job_number
-      self.counter_number = counter_number
-      self.job_prefix = job_prefix
-   def run(self):
-      print ("Starting :" + str(self.job_number))
-      # Get lock to synchronize threads
-      # threadLock.acquire()
-      play_call_sound(self.job_number, self.counter_number,self.job_prefix)
-      # Free lock to release next thread
-      # threadLock.release()
+# class myThread (threading.Thread):
+#    def __init__(self, job_number, counter_number, job_prefix):
+#       threading.Thread.__init__(self)
+#       self.job_number = job_number
+#       self.counter_number = counter_number
+#       self.job_prefix = job_prefix
+#    def run(self):
+#       print ("Starting :" + str(self.job_number))
+#       # Get lock to synchronize threads
+#       # threadLock.acquire()
+#       play_call_sound(self.job_number, self.counter_number,self.job_prefix)
+#       # Free lock to release next thread
+#       # threadLock.release()
 
 def call_job(self,job_pk):
 	job = Job.objects.get(pk=job_pk)

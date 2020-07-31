@@ -39,3 +39,10 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 from django.contrib import admin
 admin.site.site_header = 'LCB1 Q-System'
 admin.site.site_title = 'LCB1 Q-System'
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

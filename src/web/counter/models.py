@@ -17,7 +17,7 @@ class Counter(models.Model):
 		return reverse('counter:detail', kwargs={'pk': self.pk})
 
 	def get_working_jobs(self):
-		return self.jobs.filter(active=True)
+		return self.jobs.filter(active=True,counter=None)
 
 	class Meta:
 		indexes = [
