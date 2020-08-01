@@ -58,6 +58,7 @@ def create_next_queue(self,pk):
 	# enqueue the task
 	section = Section.objects.get(pk=pk)
 	section.create_queue()
+	section = Section.objects.get(pk=pk)
 	async_task("section.services.create_next_queue", pk)
 	#
 
@@ -67,7 +68,7 @@ def create_next_queue(self,pk):
 	# 					section = section)
 	# print Queue paper
 	# Send Q number to print.
-	qnumber = '%s' % section.current_number
+	qnumber = '%s' % (section.current_number)
 	# print(qnumber)
 	# print(section.prefix)
 	add_print(section.prefix,qnumber)
