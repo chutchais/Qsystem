@@ -68,7 +68,7 @@ def assign_counter(self,job_pk,counter_pk):
 	# Save to Database(Redis)
 	add_q(counter.counter_number,job.section.prefix,job.queue_number)
 	# ---------
-	return HttpResponseRedirect(reverse('counter:detail',kwargs={'pk': counter.pk})) 
+	return HttpResponseRedirect('%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)) 
 
 def cancel_job(self,job_pk):
 	job = Job.objects.get(pk=job_pk)
@@ -85,13 +85,13 @@ def cancel_job(self,job_pk):
 	#
 
 	
-	url = reverse('counter:detail',kwargs={'pk': counter.pk})
+	url = '%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)
 	return HttpResponseRedirect(url) 
 
 def complete_job(self,job_pk):
 	job = Job.objects.get(pk=job_pk)
 	counter = job.counter
-	url = reverse('counter:detail',kwargs={'pk': counter.pk})
+	url = '%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)
 
 
 	# counter.current_job = None
