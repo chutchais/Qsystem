@@ -88,7 +88,8 @@ def cancel_job(self,job_pk):
 	url = '%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)
 	return HttpResponseRedirect(url) 
 
-def complete_job(self,job_pk):
+def complete_job(request,job_pk):
+	print(request.user)
 	job = Job.objects.get(pk=job_pk)
 	counter = job.counter
 	url = '%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)
@@ -101,7 +102,7 @@ def complete_job(self,job_pk):
 	# job.finished_date = timezone.now()
 	# job.save()
 	# enqueue the task
-	async_task("job.services.complete_job", job_pk)
+	async_task("job.services.complete_job", job_pk,request.user)
 	#
 	return HttpResponseRedirect(url) 
 

@@ -28,7 +28,7 @@
 		{% endfor %}
 	</table>
 
-	<h3>Pending Job</h3>
+	<h3>Pending Job (On Queue : {{ pending_job_list.count }} jobs)</h3>
 	<a href="?section=">ALL</a> |
 	{% for section in section_list %}
 		<a href="?section={{section}}">{{section}}</a> |

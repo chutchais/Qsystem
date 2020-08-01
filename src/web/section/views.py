@@ -57,6 +57,15 @@ class SectionDetailView(LoginRequiredMixin,DetailView):
 def create_next_queue(self,pk):
 	# enqueue the task
 	section = Section.objects.get(pk=pk)
+
+	# Count On-process job for particular section
+	waiting_q = 0
+	waiting_q = section.jobs.filter(active=True,counter=None).count()
+	# print ('Waitting Q : %s' % waiting_q)
+	# --------------------------------------------
+
+
+
 	section.create_queue()
 	# section = Section.objects.get(pk=pk)
 	async_task("section.services.create_next_queue", pk)
@@ -66,20 +75,29 @@ def create_next_queue(self,pk):
 	# section.create_queue()
 	# new_job = Job.objects.create(queue_number = section.starting_number + section.current_number,
 	# 					section = section)
+
+	
+
 	# Send Q number to print.
+	import datetime, pytz
+	tz = pytz.timezone('Asia/Bangkok')
+	from django.utils import timezone
+	now = datetime.datetime.now(tz).strftime('%d %b %H:%M')
 	qnumber = '%s' % (section.current_number)
-	add_print(section.prefix,qnumber)
+	add_print(section.prefix,qnumber,now,waiting_q)
 	# ----------
 
 	return HttpResponseRedirect(reverse('section:list'))
 
-def add_print(q_prefix,q_number):
+def add_print(q_prefix,q_number,q_date,q_waiting=0):
 	# Save to Database
 	ttl = 60*60 #1 minutes
 	key = f"P:{q_number}"
 	payload ={
 		"prefix":q_prefix,
 		"number":q_number,
+		"wait":q_waiting,
+		"date":str(q_date)
 	}
 	if db.exists(key):
 		db.delete(key)

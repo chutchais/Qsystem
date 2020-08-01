@@ -21,6 +21,7 @@ def cancel_job(job):
 	job.counter =  None
 	job.started_date = None
 	job.on_process=False
+	job.user=None
 	job.save()
 	print('Cancel JOB %s ...Done' % job)
 
@@ -39,7 +40,7 @@ def assign_counter(jobWithCounterPk):
 	counter.save()
 	print('Assign JOB %s ...Done' % job)
 
-def complete_job(job_pk):
+def complete_job(job_pk,user_obj):
 	job = Job.objects.get(pk=job_pk)
 	counter = job.counter
 	counter.current_job = None
@@ -48,6 +49,7 @@ def complete_job(job_pk):
 	job.active = False
 	job.on_process=False
 	job.finished_date = timezone.now()
+	job.user = user_obj
 	job.save()
 	print('Complete JOB %s ...Done' % job)
 # def add_q(playloadWithKey):

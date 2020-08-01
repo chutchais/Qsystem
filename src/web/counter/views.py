@@ -31,10 +31,10 @@ class CounterDetailView(LoginRequiredMixin,DetailView):
 		# print(query)
 		if query :
 			context['pending_job_list'] = Job.objects.filter(
-				active=True,on_process=False,section__name=query).select_related('section','counter')[:20]
+				active=True,on_process=False,section__name=query,counter=None).select_related('section','counter')[:20]
 		else :
 			context['pending_job_list'] = Job.objects.filter(
-				active=True,on_process=False).select_related('section','counter')[:50]
+				active=True,on_process=False,counter=None).select_related('section','counter')[:50]
 		
 		context['section_list'] = Section.objects.all()
 		return context

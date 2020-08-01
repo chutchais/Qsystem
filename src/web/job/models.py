@@ -26,7 +26,8 @@ class Job(models.Model):
 	user 			= models.ForeignKey(
 							settings.AUTH_USER_MODEL,
 							on_delete=models.SET_NULL,
-							blank=True, null=True
+							blank=True, null=True,
+							related_name = 'jobs'
 						)
 
 	def __str__(self):

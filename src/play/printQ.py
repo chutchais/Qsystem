@@ -20,12 +20,14 @@ def pulling_q():
 		payload = json.loads(db.get(q))
 		prefix = payload['prefix']
 		number = payload['number']
+		wait   = payload['wait']
+		date   = payload['date']
 		number = int(number)
 		# print('Print Q :' ,number )
 		# print(prefix)
 		# delete key
 		db.delete(q)
-		print('Print Q : %s%03d' % (prefix,number))
+		print('Print Q : %s%03d  -- Date : %s Waiting Q : %s' % (prefix,number,date,wait))
 
 		make_print_file('%s%03d' % (prefix,number))
 		import os
