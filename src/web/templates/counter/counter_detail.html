@@ -29,6 +29,11 @@
 	</table>
 
 	<h3>Pending Job</h3>
+	<a href="?section=">ALL</a> |
+	{% for section in section_list %}
+		<a href="?section={{section}}">{{section}}</a> |
+	{% endfor %}
+	<br>
 	<table>
  	{% for job in pending_job_list %}
  		{% if job.counter == None %}

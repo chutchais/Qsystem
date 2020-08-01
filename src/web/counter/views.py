@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Counter
 from job.models import Job
+from section.models import Section
 
 class CounterListView(LoginRequiredMixin,ListView):
 	model = Counter
@@ -22,11 +23,18 @@ class CounterDetailView(LoginRequiredMixin,DetailView):
 	model = Counter
 
 	def get_context_data(self, **kwargs):
+		query = self.request.GET.get('section')
 		context = super().get_context_data(**kwargs)
 		counter = super().get_object()
 		context['working_job_list'] = Job.objects.filter(
 			counter=counter, active=True,on_process=True).select_related('section','counter')[:5]
-		context['pending_job_list'] = Job.objects.filter(
-			active=True,on_process=False).select_related('section','counter')[:30]
-		# context['job_list'] = Job.objects.filter(active=True,counter=counter).select_related('section','counter')
+		# print(query)
+		if query :
+			context['pending_job_list'] = Job.objects.filter(
+				active=True,on_process=False,section__name=query).select_related('section','counter')[:20]
+		else :
+			context['pending_job_list'] = Job.objects.filter(
+				active=True,on_process=False).select_related('section','counter')[:50]
+		
+		context['section_list'] = Section.objects.all()
 		return context
