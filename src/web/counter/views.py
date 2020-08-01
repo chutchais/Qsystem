@@ -13,7 +13,8 @@ class CounterListView(LoginRequiredMixin,ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['job_list'] = None#Job.objects.filter(active=True,counter=None).select_related('section','counter')
+		context['pending_job_list'] = Job.objects.filter(
+			active=True,on_process=False).select_related('section','counter')[:30]
 		# context['current_job'] ='My job'
 		return context
 
@@ -23,5 +24,9 @@ class CounterDetailView(LoginRequiredMixin,DetailView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		counter = super().get_object()
-		context['job_list'] = Job.objects.filter(active=True,counter=counter).select_related('section','counter')
+		context['working_job_list'] = Job.objects.filter(
+			counter=counter, active=True,on_process=True).select_related('section','counter')[:5]
+		context['pending_job_list'] = Job.objects.filter(
+			active=True,on_process=False).select_related('section','counter')[:30]
+		# context['job_list'] = Job.objects.filter(active=True,counter=counter).select_related('section','counter')
 		return context

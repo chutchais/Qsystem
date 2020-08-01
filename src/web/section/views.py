@@ -46,6 +46,8 @@ import json
 import redis
 db = redis.StrictRedis('redis', 6379, charset="utf-8", decode_responses=True)
 
+from django_q.tasks import async_task
+
 class SectionListView(LoginRequiredMixin,ListView):
 	model = Section
 
@@ -53,22 +55,21 @@ class SectionDetailView(LoginRequiredMixin,DetailView):
 	model = Section
 
 def create_next_queue(self,pk):
+	# enqueue the task
 	section = Section.objects.get(pk=pk)
 	section.create_queue()
-	# Create Job
-	new_job = Job.objects.create(queue_number = section.starting_number + section.current_number,
-						section = section)
-	# print Queue paper
+	async_task("section.services.create_next_queue", pk)
+	#
 
-	# pth = settings.STATIC_ROOT 
-	# make_print_file('%s%03d' % (section.prefix,new_job.queue_number))
-	# import os
-	# myCmd = '%ssenddat.exe -t %sq1.txt USBPRN0' % (pth,pth)
-	# # print(myCmd)
-	# import subprocess
-	# subprocess.call(myCmd)
+	# section = Section.objects.get(pk=pk)
+	# section.create_queue()
+	# new_job = Job.objects.create(queue_number = section.starting_number + section.current_number,
+	# 					section = section)
+	# print Queue paper
 	# Send Q number to print.
-	add_print(section.prefix,new_job.queue_number)
+	qnumber = '%s%s' % (section.starting_number ,section.current_number)
+	print(qnumber)
+	add_print(section.prefix,qnumber)
 	# ----------
 
 	return HttpResponseRedirect(reverse('section:list'))

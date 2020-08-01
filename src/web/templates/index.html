@@ -3,7 +3,7 @@
 {% block title %}LCB1 - Home{% endblock %}
 
 {% block meta %}
-    <meta http-equiv="refresh" content="20">
+    <meta http-equiv="refresh" content="">
 {% endblock meta %}
 
 {% block content %}
@@ -16,7 +16,7 @@
 					{% if forloop.counter <= 6 %}
 						<div class="list-counter">
 							<div class="counter">{{object.counter_number}}</div>
-							<div class="queue">{{object.get_working_jobs.last.get_full_name}}</div>
+							<div class="queue">{{object.current_job|default_if_none:""}}</div>
 						</div>
 					{% endif %}
 				{% endfor %}
@@ -27,7 +27,7 @@
 					{% if forloop.counter > 6 %}
 						<div class="list-counter">
 							<div class="counter-r">{{object.counter_number}}</div>
-							<div class="queue">{{object.get_working_jobs.last.get_full_name}}</div>
+							<div class="queue">{{object.current_job|default_if_none:""}}</div>
 						</div>
 					{% endif %}
 				{% endfor %}
@@ -41,26 +41,21 @@
 
 
 {% block javascript %}
-<script type="text/javascript">
-    new Vue({
-          el: '#qsystem',
-          delimiters: ['${','}'],
-          data: {
-            test : 'Hello World'
-          },
-          mounted: function() {
 
-          },
-          created: function() {
-
-          },
-          methods: {
-          }
-        });
-  </script>
 {% endblock javascript %}
 
 
+ {% block script %}
+<script>
+    new Vue({
+          el: '#qsystem',
+          delimiters: ['[[',']]'],
+          data: {
+            test : 'Hello World'
+          },
+        });
+  </script>
+      {% endblock %}
 
 
 {% block stylesheet %}

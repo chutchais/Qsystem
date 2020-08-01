@@ -16,6 +16,7 @@ class Job(models.Model):
 							blank=True,null=True,
 							on_delete=models.SET_NULL,
 							related_name = 'jobs')
+	on_process		= models.BooleanField(default=False)
 	note 			= models.TextField(null = True,blank = True)
 	created_date	= models.DateTimeField(auto_now_add=True)
 	modified_date	= models.DateTimeField(blank=True, null=True,auto_now=True)

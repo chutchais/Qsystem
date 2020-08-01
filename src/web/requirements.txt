@@ -3,3 +3,4 @@ django-redis
 gunicorn==19.9.0
 django-crispy_forms
 django-debug-toolbar
+django_q

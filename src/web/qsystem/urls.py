@@ -20,10 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 
-from .views import Index
+from .views import Index,testQView
 
 urlpatterns = [
 	path('', Index),
+    path('testq', testQView),
     path('auth/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('section/',include(('section.urls','section'),namespace='section')),

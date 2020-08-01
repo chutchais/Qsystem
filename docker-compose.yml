@@ -48,6 +48,23 @@ services:
     ports:
       - 8001:8001
 
+  qcluster:
+    build:
+      context: ./src/web
+    networks:
+      - main
+    volumes:
+      # - web-django:/usr/src/app
+      - web-static:/staticfiles
+      - web-media:/media
+    command: python manage.py qcluster
+    container_name: qcluster
+    depends_on:
+      - web-server
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+
+
 
 #  play-server:
 #    build:
