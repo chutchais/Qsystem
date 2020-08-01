@@ -6,32 +6,35 @@ import json
 # from task import play_call_sound
 
 # db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
-# db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True)
-db = redis.StrictRedis('10.24.50.93', 6378, charset="utf-8", decode_responses=True) #Production
+db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True)
+# db = redis.StrictRedis('10.24.50.93', 6379, charset="utf-8", decode_responses=True) #Production
 
 
 def pulling_q():
-	try:
-		now = datetime.now() # current date and time
-		# start_time 	= get_last_exe_time('B1')
-		stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
-		for q in db.keys('P*'):
-			counter = q.split(':')[1]
-			payload = json.loads(db.get(q))
-			prefix = payload['prefix']
-			number = payload['number']
-			print('Print Q :' ,number )
-			# delete key
-			db.delete(q)
+	# try:
+	now = datetime.now() # current date and time
+	# start_time 	= get_last_exe_time('B1')
+	stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
+	for q in db.keys('P*'):
+		counter = q.split(':')[1]
+		payload = json.loads(db.get(q))
+		prefix = payload['prefix']
+		number = payload['number']
+		number = int(number)
+		# print('Print Q :' ,number )
+		# print(prefix)
+		# delete key
+		db.delete(q)
+		print('Print Q : %s%03d' % (prefix,number))
 
-			make_print_file('%s%03d' % (prefix,number))
-			import os
-			myCmd = 'senddat.exe -t q.txt USBPRN0' 
-			print(myCmd)
-			import subprocess
-			subprocess.call(myCmd)
-	except Exception as e:
-		pass
+		make_print_file('%s%03d' % (prefix,number))
+		import os
+		myCmd = 'senddat.exe -t q.txt USBPRN0' 
+		print(myCmd)
+		import subprocess
+		subprocess.call(myCmd)
+	# except Exception as e:
+	# 	pass
 	
 
 

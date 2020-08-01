@@ -3,7 +3,7 @@ GS ! 0
 
 "LCB1&LCMT Q-System" CR LF
 GS ! 119
-"X615" CR LF
+"C007" CR LF
 GS ! 0
 CR LF
 CR LF
