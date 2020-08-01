@@ -44,7 +44,7 @@ def call_job(self,job_pk):
 
 	add_q(counter.counter_number,job.section.prefix,job.queue_number)
 
-	return HttpResponseRedirect(reverse('counter:detail',kwargs={'pk': counter.pk})) 
+	return HttpResponseRedirect('%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)) 
 
 
 def assign_counter(self,job_pk,counter_pk):
