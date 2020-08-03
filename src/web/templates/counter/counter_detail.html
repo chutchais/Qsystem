@@ -18,7 +18,7 @@
 		{% for job in working_job_list %}
 		<tr>
 			<td>
-				<h2><span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} </span></h2>
+				<h2><span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.section.prefix}}{{job.queue_number}} </span></h2>
 			</td>
 			<td>
 			{{job.created_date}} ({{job.created_date|timesince}}) 
@@ -38,7 +38,7 @@
  	{% for job in pending_job_list %}
  		{% if job.counter == None %}
 
- 			<span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.get_full_name}} -- {{job.created_date|naturaltime}} </span><a href="{% url 'job:assign' job.pk object.pk %}"><i class="fas fa-plus-circle"></i> </a> 
+ 			<span class="badge" style="background-color: {{job.section.color}};color: #ffffff;">{{job.section.prefix}}{{job.queue_number}} -- {{job.created_date|naturaltime}} </span><a href="{% url 'job:assign' job.pk object.pk %}"><i class="fas fa-plus-circle"></i> </a> 
 				   <a href="{% url 'job:delete' job.pk %}"><i class="fas fa-trash-alt"></i></a> ||
 
  			<!-- <tr>
@@ -59,13 +59,4 @@
 
 
  {% block script %}
-<script>
-    new Vue({
-          el: '#app',
-          delimiters: ['[[',']]'],
-          data: {
-            test : 'Hello World'
-          },
-        });
-  </script>
-      {% endblock %}
+ {% endblock %}

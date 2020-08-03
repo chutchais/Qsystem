@@ -43,6 +43,7 @@ class Job(models.Model):
 		indexes = [
 			models.Index(fields=['counter'],name='idx_job_job_counter'),
 			models.Index(fields=['section'],name='idx_job_job_section'),
+			models.Index(fields=['active'],name='idx_job_job_active'),
 		]
 		ordering = ['created_date']
 
