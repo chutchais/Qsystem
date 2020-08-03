@@ -30,7 +30,7 @@
 
 	<h3>Pending Job (On Queue : {{ pending_job_list.count }} jobs)</h3>
 	<a href="?section=">
-		{% if request.GET.section == '' %}
+		{% if request.GET.section == '' or request.GET.section == None  %}
 			<span class="badge" style="background-color:#445566;color: #FFFFFF;">
 			ALL </span>
 		{% else %}
