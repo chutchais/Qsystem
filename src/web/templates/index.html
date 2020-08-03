@@ -7,33 +7,51 @@
 {% endblock meta %}
 
 {% block content %}
- <div id="qsystem">
-	<div class="wrapper">
-		<div class="main">
-
-			<div class="list-counter-left">
-				{% for object in object_list %}
-					{% if forloop.counter <= 6 %}
-						<div class="list-counter">
-							<div class="counter">{{object.counter_number}}</div>
-							<div class="queue">{{object.current_job|default_if_none:""}}</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-
-			<div class="list-counter-right">
-				{% for object in object_list %}
-					{% if forloop.counter > 6 %}
-						<div class="list-counter">
-							<div class="counter-r">{{object.counter_number}}</div>
-							<div class="queue">{{object.current_job|default_if_none:""}}</div>
-						</div>
-					{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-	</div>
+ <div>
+<table style="width:100%;height=100%" border="1" height="700">
+   <tr>
+    <td class="counter">1</td>
+    <td class="q"><strong>{{c1}}</strong></td> 
+    <td class="counter">7</td>
+    <td class="q"><strong>{{c7}}</strong></td>
+  </tr>
+  
+  <tr>
+    <td class="counter">2</td>
+    <td class="q"><strong>{{c2}}</strong></td> 
+    <td class="counter">8</td>
+    <td class="q"><strong>{{c8}}</strong></td>
+  </tr>
+  
+  <tr>
+    <td class="counter">3</td>
+    <td class="q"><strong>{{c3}}</strong></td> 
+    <td class="counter">9</td>
+    <td class="q"><strong>{{c9}}</strong></td>
+  </tr>
+  
+  <tr>
+    <td class="counter">4</td>
+    <td class="q"><strong>{{c4}}</strong></td> 
+    <td class="counter">10</td>
+    <td class="q"><strong>{{c10}}</strong></td>
+  </tr>
+  
+  <tr>
+    <td class="counter">5</td>
+    <td class="q"><strong>{{c5}}</strong></td> 
+    <td class="counter">11</td>
+    <td class="q"><strong>{{c11}}</strong></td>
+  </tr>
+  
+  <tr>
+    <td class="counter">6</td>
+    <td class="q"><strong>{{c6}}</strong></td> 
+    <td class="counter">12</td>
+    <td class="q"><strong>{{c12}}</strong></td>
+  </tr>
+  
+</table>
 </div>
 {% endblock content %}
 
@@ -46,143 +64,24 @@
 
 
  {% block script %}
-<script>
-    new Vue({
-          el: '#qsystem',
-          delimiters: ['[[',']]'],
-          data: {
-            test : 'Hello World'
-          },
-        });
-  </script>
+
       {% endblock %}
 
 
 {% block stylesheet %}
-
-           .wrapper{
-              display:grid;
-              grid-gap:10px;
-             width: 100%;
-             height : 100%;
-            margin: 0;
-            padding: 0;
-              <!-- width: 100vw; -->
-          }
-
-
-
 .counter {
-    grid-area: counter;
-    font-size: 4rem;
-    display: flex;
-    align-items: center;
-    /* justify-items: center; */
-    justify-content: center;
-    background-color: coral
-}
-
-.counter-r {
-    grid-area: counter;
-    font-size: 4rem;
-    display: flex;
-    align-items: center;
-    /* justify-items: center; */
-    justify-content: center;
-    background-color: tan;
-}
-
-.queue {
-    grid-area: queue;
-    font-size: 4rem;
-    display: flex;
-    align-items: center;
-    /* justify-items: center; */
-    justify-content: center;
-}
-		
-		.list-counter {
-            display: grid;
-            grid-gap: 2px;
-            grid-template-areas:
-            'counter queue';
-            box-shadow:var(--shadow);
-            grid-template-columns: 1fr 1fr;
-        }
-
-        
-
-
-      .list-counter-left {
-            display: grid;
-            grid-gap: 2px;
-            grid-template-areas:
-            'list-counter';
-            box-shadow:var(--shadow);
-            grid-template-columns: 1fr;
-        }
-
-        .list-counter-right {
-            display: grid;
-            grid-gap: 2px;
-            grid-template-areas:
-               'list-counter';
-            box-shadow:var(--shadow);
-            grid-template-columns: 1fr;
-        }
-
-        .main{
-        	display: grid;
-            grid-gap: 2px;
-            grid-template-areas:
-            'list-counter-left list-counter-right';
-
+      width:25%;
+        background-color:powderblue;
+        text-align:center;
+        font-family:verdana;
+        font-size:70px
     }
-
-<!-- @media(max-width:1400px){
-    .main{
-    		 grid-template-columns: 1fr 1fr;
-            grid-template-areas:
-            'list-counter-left list-counter-right';
-
+    .q {
+      width:25%;
+        text-align:center;
+        font-family:verdana;
+        font-size:70px
     }
-} -->
-
-@media(max-width:980px){
-
-	.main{
-    		 grid-template-columns: 1fr 1fr;
-            grid-template-areas:
-            'list-counter-left list-counter-right';
-
-    }
-    
-    .counter {
-	    font-size: 3rem;
-	}
-
-	.counter-r {
-	    font-size: 3rem;
-	}
-
-	.queue {
-	    font-size: 3rem;
-	}
-}
-
-@media(max-width:640px){
-    .counter {
-	    font-size: 2rem;
-	}
-
-	.counter-r {
-	    font-size: 2rem;
-	}
-
-	.queue {
-	    font-size: 2rem;
-	}
-}
    
 
 {% endblock stylesheet %}
