@@ -13,6 +13,8 @@ from counter.models import Counter
 from django.utils import timezone
 from django.conf import settings
 
+from django.views.generic.dates import DayArchiveView
+
 # from .tasks import play_call_sound
 
 # Redis
@@ -89,7 +91,7 @@ def cancel_job(self,job_pk):
 	return HttpResponseRedirect(url) 
 
 def complete_job(request,job_pk):
-	print(request.user)
+	# print(request.user)
 	job = Job.objects.get(pk=job_pk)
 	counter = job.counter
 	url = '%s?section=%s' % (reverse('counter:detail',kwargs={'pk': counter.pk}),job.section)
@@ -121,3 +123,22 @@ def add_q(counter,q_prefix,q_number):
 	
 	db.set(key,json.dumps(payload)) #store dict in a hashjson.dumps(json_data)
 	db.expire(key, ttl) #expire it after a year
+
+
+
+# Added on Aug 6,2020 -- To show archive Job data
+class JobDayArchiveView(DayArchiveView):
+	queryset = Job.objects.all()
+	date_field = "created_date"
+	allow_future = True
+
+	def get_queryset(self):
+		print('get_queryst')
+		qs = super().get_queryset()
+		# return qs.filter(name__startswith=self.kwargs['name'])
+		return qs 
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		# counter = super().get_object()
+		return context

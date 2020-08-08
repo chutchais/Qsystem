@@ -5,7 +5,8 @@ from django.urls import path
 from .views import (JobListView,
 					JobDetailView,JobDeleteView,
 					assign_counter,
-					cancel_job,complete_job,call_job)
+					cancel_job,complete_job,call_job,
+                    JobDayArchiveView)
 
 urlpatterns = [
     path('', JobListView.as_view(), name='list'),
@@ -15,4 +16,7 @@ urlpatterns = [
     path('<slug:job_pk>/assign/<slug:counter_pk>',assign_counter, name='assign'),
     path('<slug:job_pk>/cancel',cancel_job, name='cancel'),
     path('<slug:job_pk>/complete',complete_job, name='complete'),
+    path('archive/<int:year>/<str:month>/<int:day>/',
+         JobDayArchiveView.as_view(),
+         name="archive_day"),
 ]
