@@ -14,6 +14,7 @@ class Section(models.Model):
 	modified_date	= models.DateTimeField(blank=True, null=True,auto_now=True)
 	active			= models.BooleanField(default=True)
 	color			= models.CharField(max_length=20,null = False,blank = True)
+	seq 			= models.IntegerField(default=10)
 
 	def __str__(self):
 		return ('%s' % self.name)
@@ -36,4 +37,4 @@ class Section(models.Model):
 		indexes = [
 			models.Index(fields=['name'],name='idx_section_section_name'),
 		]
-		ordering = ['prefix']
+		ordering = ['seq']
