@@ -14,5 +14,7 @@ def create_next_queue(section_pk):
 def reset_queue():
 	Section.objects.update(current_number=0)
 	Counter.objects.update(current_job='')
+	# Added on Aug 19,2020 -- To delete all Job. (found speed problem)
+	Job.objects.all().delete()
 	# current_job
 	print('Reset Section current Queue...')
