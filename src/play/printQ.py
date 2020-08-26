@@ -6,37 +6,33 @@ import json
 # from task import play_call_sound
 
 # db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
-db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True)
-# db = redis.StrictRedis('10.24.50.93', 6379, charset="utf-8", decode_responses=True) #Production
+# db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
 
 
 def pulling_q():
-	# try:
-	now = datetime.now() # current date and time
-	# start_time 	= get_last_exe_time('B1')
-	stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
-	for q in db.keys('P*'):
-		counter = q.split(':')[1]
-		payload = json.loads(db.get(q))
-		prefix = payload['prefix']
-		number = payload['number']
-		wait   = payload['wait']
-		date   = payload['date']
-		number = int(number)
-		# print('Print Q :' ,number )
-		# print(prefix)
-		# delete key
-		db.delete(q)
-		print('Print Q : %s%03d  -- Date : %s Waiting Q : %s' % (prefix,number,date,wait))
+	try:
+		now = datetime.now() # current date and time
+		# db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True) #Production
+		db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
+		print('Printing Q :' , now)
+		for q in db.keys('P*'):
+			counter = q.split(':')[1]
+			payload = json.loads(db.get(q))
+			prefix = payload['prefix']
+			number = payload['number']
+			wait   = payload['wait']
+			date   = payload['date']
+			number = int(number)
+			db.delete(q)
+			print('Print Q : %s%03d  -- Date : %s Waiting Q : %s' % (prefix,number,date,wait))
 
-		make_print_file('%s%03d' % (prefix,number))
-		import os
-		myCmd = 'senddat.exe -t q.txt USBPRN0' 
-		print(myCmd)
-		import subprocess
-		subprocess.call(myCmd)
-	# except Exception as e:
-	# 	pass
+			make_print_file('%s%03d' % (prefix,number))
+			import os
+			myCmd = 'senddat.exe -t q.txt USBPRN0' 
+			import subprocess
+			subprocess.call(myCmd)
+	except Exception as e:
+		print('Error on PrintingQ :',e)
 	
 
 
@@ -80,13 +76,15 @@ schedule.every(1).seconds.do(pulling_q)
 # schedule.every().minute.at(":17").do(job)
 
 # Initial run
-pulling_q()
+# pulling_q()
 
 #------------
 while True:
-	try:
-		schedule.run_pending()
-		time.sleep(1)
-	except Exception as e:
-		pass
+	schedule.run_pending()
+	time.sleep(1)
+	# try:
+	# 	schedule.run_pending()
+	# 	time.sleep(1)
+	# except Exception as e:
+	# 	pass
 	
