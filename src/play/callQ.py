@@ -6,15 +6,17 @@ import json
 from task import play_call_sound
 
 # db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
-
 # db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True) # Dockere
-db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
+# db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
 
 def pulling_q():
 	try:
+		# db = redis.StrictRedis('localhost', 6379, charset="utf-8", decode_responses=True)
+		db = redis.StrictRedis('10.24.50.94', 6379, charset="utf-8", decode_responses=True) #Production
 		now = datetime.now() # current date and time
 		# start_time 	= get_last_exe_time('B1')
 		stop_time 	= now.strftime("%Y-%m-%d %H:%M:%S")
+		print('Calling Q :' , now)
 		for q in db.keys('Q*'):
 			counter = q.split(':')[1]
 			payload = json.loads(db.get(q))
@@ -25,7 +27,7 @@ def pulling_q():
 			
 			play_call_sound(number,counter,prefix)
 	except Exception as e:
-		pass
+		print('Error on PullingQ :',e)
 	
 		# print (counter,prefix,number)
 	# print(db.keys('Q*'))
@@ -33,7 +35,7 @@ def pulling_q():
 	# print(f"New TruckQ : {pulling_PAT(b1_json)} records")
 
 
-schedule.every(1).seconds.do(pulling_q)
+schedule.every(2).seconds.do(pulling_q)
 # schedule.every(5).minutes.do(pulling_a0)
 # schedule.every().hour.do(job)
 # schedule.every().day.at("10:30").do(job)
@@ -43,16 +45,16 @@ schedule.every(1).seconds.do(pulling_q)
 # schedule.every().minute.at(":17").do(job)
 
 # Initial run
-pulling_q()
+# pulling_q()
 
-db.connect()
-exit(0)
 
 #------------
 while True:
-	try:
-		schedule.run_pending()
-		time.sleep(1)
-	except Exception as e:
-		pass
+	schedule.run_pending()
+	time.sleep(1)
+	# try:
+	# 	schedule.run_pending()
+	# 	time.sleep(1)
+	# except Exception as e:
+	# 	pass
 	
