@@ -6,12 +6,13 @@ from django.utils import timezone
 # db = redis.StrictRedis('192.168.99.100', 6379, charset="utf-8", decode_responses=True)
 
 def sleep_and_print(secs):
-    sleep(secs)
-    print("Task ran!")
+	sleep(secs)
+	print("Task ran!")
 
 # Job Action
-from .models import Job
+from .models import Job,Job_Archive
 from counter.models import Counter
+
 def cancel_job(job):
 	# job = Job.objects.get(pk=job_pk)
 	counter = job.counter
@@ -51,7 +52,34 @@ def complete_job(job_pk,user_obj):
 	job.finished_date = timezone.now()
 	job.user = user_obj
 	job.save()
-	print('Complete JOB %s ...Done' % job)
+
+	import math
+	# Added on Jan 21,2021 -- TO copy job to Job Archive
+	import datetime, pytz
+	from django.utils.timezone import localtime
+	tz = pytz.timezone('Asia/Bangkok')
+	create_dt = localtime(job.created_date) #.replace(tzinfo=tz)
+	local_dt = datetime.datetime.now(tz=tz)
+	waiting_time= math.ceil((job.started_date - job.created_date).total_seconds() / 60.0)
+	process_time= math.ceil((job.finished_date - job.started_date).total_seconds() / 60.0)
+	total_time = waiting_time+process_time
+	job_archive = Job_Archive(queue_number=job.queue_number,section=job.section,counter=job.counter,
+					on_process=job.on_process,note=job.note,created_date=job.created_date,
+					modified_date=job.modified_date,started_date=job.started_date,finished_date=job.finished_date,
+					active=job.active,user=job.user,
+					year_arch=create_dt.year,month_arch=create_dt.month,
+					day_created=create_dt.day,hour_created=create_dt.hour,
+					day_completed=local_dt.day,hour_completed=local_dt.hour,
+					waiting_time	= waiting_time,
+					process_time	= process_time,
+					total_time 		= total_time
+					)
+	job_archive.save()
+
+	# Added on Jan 21,2021 -- To delete job 
+	job.delete()
+
+	print('Complete JOB %s ...Done' % job_archive)
 # def add_q(playloadWithKey):
 
 # 	ttl = 60*60 #1 minutes

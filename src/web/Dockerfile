@@ -49,8 +49,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 #ENTRYPOINT ["python"]
 COPY . /usr/src/web
 
-
-
 COPY ./requirements.txt /usr/src/web
 
 RUN pip install --upgrade pip
@@ -58,3 +56,6 @@ RUN pip install -r requirements.txt
 
 
 COPY . /usr/src/web
+
+RUN chmod a+x docker-entrypoint.sh
+ENTRYPOINT ["/usr/src/web/docker-entrypoint.sh"]
