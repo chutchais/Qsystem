@@ -110,7 +110,12 @@ class JobDateFilter(admin.SimpleListFilter):
 class jobResource(resources.ModelResource):
 	class Meta:
 		model = Job_Archive
-		fields = '__all__'
+		# fields = '__all__'
+		fields =('queue_number','section','counter','on_process','created_date',
+				'started_date','finished_date','active','user__username',
+				'year_arch','month_arch','day_created',
+				'hour_created','day_completed','hour_completed',
+				'waiting_time','process_time','total_time')
 
 class JobArchiveAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.ModelAdmin):
 	search_fields       = []
@@ -123,4 +128,6 @@ class JobArchiveAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin,admin.
 								'hour_created','day_completed','hour_completed',
 								'waiting_time','process_time','total_time']}),
 	]
+	resource_class = jobResource
+
 admin.site.register(Job_Archive,JobArchiveAdmin)
