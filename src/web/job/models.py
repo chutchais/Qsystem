@@ -62,7 +62,7 @@ class Job_Archive(models.Model):
 							related_name = 'jobs_archive')
 	on_process		= models.BooleanField(default=False)
 	note 			= models.TextField(null = True,blank = True)
-	created_date	= models.DateTimeField(auto_now_add=True)
+	created_date	= models.DateTimeField(blank=True, null=True)#Remove auto_now_add on Feb 9,2021
 	modified_date	= models.DateTimeField(blank=True, null=True,auto_now=True)
 	started_date	= models.DateTimeField(blank=True, null=True)
 	finished_date	= models.DateTimeField(blank=True, null=True)
@@ -98,4 +98,4 @@ class Job_Archive(models.Model):
 			models.Index(fields=['section'],name='idx_job_archive_job_section'),
 			models.Index(fields=['active'],name='idx_job_archive_job_active'),
 		]
-		ordering = ['created_date']
+		ordering = ['-created_date']
