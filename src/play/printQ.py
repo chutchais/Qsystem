@@ -26,7 +26,7 @@ def pulling_q():
 			db.delete(q)
 			print('Print Q : %s%03d  -- Date : %s Waiting Q : %s' % (prefix,number,date,wait))
 
-			make_print_file('%s%03d' % (prefix,number))
+			make_print_file('%s%03d' % (prefix,number),date,wait)
 			import os
 			myCmd = 'senddat.exe -t q.txt USBPRN0' 
 			import subprocess
@@ -36,7 +36,28 @@ def pulling_q():
 	
 
 
-def make_print_file(q_number):
+# def make_print_file(q_number):
+# 	try:
+# 		f = open("q.txt","w+")
+# 		# f.write("This is line %s\r\n" % q_number)
+# 		f.write("ESC a 1\r\n")
+# 		f.write("GS ! 0\r\n")
+# 		f.write('\r\n')
+# 		f.write('"LCB1&LCMT Q-System" CR LF\r\n')
+# 		f.write('GS ! 119\r\n')
+# 		f.write('"%s" CR LF\r\n' % q_number)
+# 		f.write('GS ! 0\r\n')
+# 		f.write('CR LF\r\n')
+# 		f.write('CR LF\r\n')
+# 		f.write('CR LF\r\n')
+# 		f.write('CR LF\r\n')
+# 		f.write('GS V 0\r\n')
+# 		f.write('*1000\r\n')
+# 	except Exception as e:
+# 		pass
+
+# Add Date on prinout paper
+def make_print_file(q_number,print_date='',wait=0):
 	try:
 		f = open("q.txt","w+")
 		# f.write("This is line %s\r\n" % q_number)
@@ -47,15 +68,16 @@ def make_print_file(q_number):
 		f.write('GS ! 119\r\n')
 		f.write('"%s" CR LF\r\n' % q_number)
 		f.write('GS ! 0\r\n')
+		f.write('"%s , Waiting Q : %s" CR LF\r\n' % (print_date,wait) )
 		f.write('CR LF\r\n')
 		f.write('CR LF\r\n')
 		f.write('CR LF\r\n')
+		
 		f.write('CR LF\r\n')
 		f.write('GS V 0\r\n')
 		f.write('*1000\r\n')
 	except Exception as e:
 		pass
-	
 
 
 	f.close() 
