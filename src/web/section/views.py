@@ -86,13 +86,16 @@ def create_next_queue(self,pk):
 	qnumber = '%s' % (section.current_number)
 	add_print(section.prefix,qnumber,now,waiting_q)
 	# ----------
+	# Addded on March 19,2021 -- To support multiple copy
+	if section.print_qty > 1 :
+		add_print(section.prefix,qnumber,now,waiting_q,True)
 
 	return HttpResponseRedirect(reverse('section:list'))
 
-def add_print(q_prefix,q_number,q_date,q_waiting=0):
+def add_print(q_prefix,q_number,q_date,q_waiting=0,reprint=False):
 	# Save to Database
 	ttl = 60*60 #1 minutes
-	key = f"P:{q_number}"
+	key = f"P:{q_number}{'reprint' if reprint else ''}"
 	payload ={
 		"prefix":q_prefix,
 		"number":q_number,

@@ -10,6 +10,7 @@ class SectionAdmin(admin.ModelAdmin):
     list_display        = ('name','seq','description','prefix','starting_number','maximum_number','current_number','color','modified_date')
     readonly_fields     = ['modified_date','created_date']
     fieldsets = [
-        ('Basic Information',{'fields': ['name','seq','color','description','prefix','starting_number','maximum_number','current_number','modified_date']}),
+        ('Basic Information',{'fields': ['name','seq','color','description','prefix','starting_number',
+                'maximum_number','current_number','print_qty','modified_date']}),
     ]
 admin.site.register(Section,SectionAdmin)

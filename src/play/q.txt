@@ -3,8 +3,9 @@ GS ! 0
 
 "LCB1&LCMT Q-System" CR LF
 GS ! 119
-"B005" CR LF
+"A029" CR LF
 GS ! 0
+"09 Feb 13:34 , Waiting Q : 4" CR LF
 CR LF
 CR LF
 CR LF

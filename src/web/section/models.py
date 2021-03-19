@@ -15,6 +15,8 @@ class Section(models.Model):
 	active			= models.BooleanField(default=True)
 	color			= models.CharField(max_length=20,null = False,blank = True)
 	seq 			= models.IntegerField(default=10)
+	# Added on March 19,2021 -- To support number of printout
+	print_qty 		= models.IntegerField(default=1)
 
 	def __str__(self):
 		return ('%s' % self.name)
